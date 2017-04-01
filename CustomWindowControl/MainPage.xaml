@@ -9,5 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <local:MyCustomWindow Width="200" Height="300"/>
+
     </Grid>
 </Page>
