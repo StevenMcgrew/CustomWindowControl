@@ -7,27 +7,162 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400" 
+    Name="myWindowUserControl" 
+    ManipulationMode="TranslateX, TranslateY" HorizontalAlignment="Left" VerticalAlignment="Top" >
+    <UserControl.RenderTransform>
+        <CompositeTransform x:Name="transformUserControl"/>
+    </UserControl.RenderTransform>
+    
+    <UserControl.Resources>
+        
+        <Style x:Key="styleButtonForWindowContent" TargetType="Button">
+            
+            <!--Change-->
+            <!--<Setter Property="Background" Value="{ThemeResource ButtonBackground}"/>-->
+            <Setter Property="Background" Value="Transparent"/>
+            
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}"/>
+            
+            <!--Change-->
+            <!--<Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderBrush}"/>-->
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+            
+            <!--Change Padding to 0-->
+            <!--<Setter Property="Padding" Value="8,4,8,4"/>-->
+            <Setter Property="Padding" Value="0"/>
+            
+            <!--Change H.align and V.align both to Stretch-->
+            <!--<Setter Property="HorizontalAlignment" Value="Left"/>-->
+            <!--<Setter Property="VerticalAlignment" Value="Center"/>-->
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="FocusVisualMargin" Value="-3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            
+                                            <!--Comment out-->
+                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>-->
+                                            
+                                            <!--Changed-->
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Aqua"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            
+                                            <!--Comment out-->
+                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>-->
+                                            
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+
+                                    <!--Comment out Pressed VisualState-->
+                                    <!--<VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>-->
+                                    
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" 
+                                              AutomationProperties.AccessibilityView="Raw" 
+                                              BorderBrush="{TemplateBinding BorderBrush}" 
+                                              BorderThickness="{TemplateBinding BorderThickness}" 
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                              Content="{TemplateBinding Content}" 
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Padding="{TemplateBinding Padding}" 
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5"/>
+            <RowDefinition Height="7"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="5"/>
+            <RowDefinition Height="7"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="7"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="7"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.Row="0" Grid.Column="0" Fill="Red" Name="TopLeft"/>
-        <Rectangle Grid.Row="0" Grid.Column="1" Fill="Orange" Name="Top"/>
-        <Rectangle Grid.Row="0" Grid.Column="2" Fill="Yellow" Name="TopRight"/>
-        <Rectangle Grid.Row="1" Grid.Column="0" Fill="Green" Name="Left"/>
-        <Rectangle Grid.Row="1" Grid.Column="2" Fill="Blue" Name="Right" PointerEntered="Right_PointerEntered" PointerExited="Right_PointerExited"/>
-        <Rectangle Grid.Row="2" Grid.Column="0" Fill="Purple" Name="BottomLeft"/>
-        <Rectangle Grid.Row="2" Grid.Column="1" Fill="Violet" Name="Bottom"/>
-        <Rectangle Grid.Row="2" Grid.Column="2" Fill="Brown" Name="BottomRight"/>
-        <Button Grid.Row="1" Grid.Column="1" Content="X" Background="Red" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <Rectangle Grid.Row="0" Grid.Column="0" Fill="Transparent" Name="TopLeft"/>
+        <Rectangle Grid.Row="0" Grid.Column="1" Fill="Transparent" Name="Top"/>
+        <Rectangle Grid.Row="0" Grid.Column="2" Fill="Transparent" Name="TopRight"/>
+        <Rectangle Grid.Row="1" Grid.Column="0" Fill="Transparent" Name="Left"/>
+        <Rectangle Grid.Row="1" Grid.Column="2" Fill="Transparent" Name="Right" PointerEntered="Right_PointerEntered" PointerExited="Right_PointerExited" ManipulationDelta="Right_ManipulationDelta" ManipulationMode="TranslateX" />
+        <Rectangle Grid.Row="2" Grid.Column="0" Fill="Transparent" Name="BottomLeft"/>
+        <Rectangle Grid.Row="2" Grid.Column="1" Fill="Transparent" Name="Bottom"/>
+        <Rectangle Grid.Row="2" Grid.Column="2" Fill="Transparent" Name="BottomRight"/>
+
+        <Button Grid.Row="1" Grid.Column="1" Name="btnForContent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource styleButtonForWindowContent}">
+            <Button.Content>
+                <Grid>
+                    <Grid Background="White"/>
+                    <Button Grid.Row="1" Grid.Column="1" Name="btnRemove" Content="X" Background="Red" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnRemove_Click"/>
+                    <Rectangle Margin="0,0,29,0" Height="32" VerticalAlignment="Top" Fill="#33000000" ManipulationDelta="Rectangle_ManipulationDelta" ManipulationMode="TranslateX, TranslateY"/>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        
     </Grid>
+
+    
+
+    
+
+
 </UserControl>
