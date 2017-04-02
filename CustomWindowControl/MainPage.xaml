@@ -9,7 +9,11 @@
 
     <Grid Background="Gray">
 
-        <local:MyCustomWindow Width="300" Height="300"/>
+        <local:MyCustomWindow Width="300" Height="300">
+            <!--<local:MyCustomWindow.ExpandedContent>
+                <Rectangle/>
+            </local:MyCustomWindow.ExpandedContent>-->
+        </local:MyCustomWindow>
 
     </Grid>
 </Page>
