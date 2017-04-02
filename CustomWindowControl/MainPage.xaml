@@ -8,12 +8,90 @@
     mc:Ignorable="d">
 
     <Grid Background="Gray">
+        
+        <local:TemplatedWindowControl HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Image Source="Assets\Apicture.png" Stretch="None"/>
+        </local:TemplatedWindowControl>
 
-        <local:MyCustomWindow Width="300" Height="300">
-            <!--<local:MyCustomWindow.ExpandedContent>
-                <Rectangle/>
-            </local:MyCustomWindow.ExpandedContent>-->
-        </local:MyCustomWindow>
+        <local:TemplatedWindowControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="144,104,0,0">
+            <Grid Name="grids" Width="340" Height="340" HorizontalAlignment="Left" VerticalAlignment="Top">
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45"/>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Border>
+                    <Border.Background>
+                        <SolidColorBrush Color="LightGray" Opacity="0.4"/>
+                    </Border.Background>
+                </Border>
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+                    <Border.Background>
+                        <SolidColorBrush Color="LightGray" Opacity="0.4"/>
+                    </Border.Background>
+                </Border>
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0">
+                    <Border.Background>
+                        <SolidColorBrush Color="LightGray" Opacity="0.4"/>
+                    </Border.Background>
+                </Border>
+                <Border Grid.Row="3" BorderBrush="Black" BorderThickness="0,1,0,0">
+                    <Border.Background>
+                        <SolidColorBrush Color="LightGray" Opacity="0.4"/>
+                    </Border.Background>
+                </Border>
+
+                <TextBlock Name="label" Text="N" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Padding="0"/>
+                <TextBlock Name="label1" Text="N" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Padding="0"/>
+                <TextBlock Name="label2" Text="N" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Padding="0"/>
+                <TextBlock Name="label3" Text="N" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Padding="0" Foreground="Red" FontWeight="Bold"/>
+                <TextBlock Name="labelUpArrow" Text="↑" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" Padding="0" Foreground="Red" Margin="0,0,5,5" FontSize="21.333"/>
+
+                <Rectangle Opacity="0.5" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Stroke="White" Fill="OrangeRed"/>
+                <Rectangle Opacity="0.5" Grid.Column="3" Grid.Row="3" Grid.ColumnSpan="3" Stroke="White" Fill="SaddleBrown"/>
+                <Rectangle Opacity="0.5" Grid.Column="5" Grid.Row="3" Grid.ColumnSpan="3" Stroke="White" Fill="Yellow"/>
+                <Rectangle Opacity="0.5" Grid.Column="7" Grid.Row="3" Grid.ColumnSpan="3" Stroke="White" Fill="Orange"/>
+
+                <Rectangle Opacity="0.5" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Stroke="White" Fill="Orange"/>
+                <Rectangle Opacity="0.5" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="3" Stroke="White" Fill="OrangeRed"/>
+                <Rectangle Opacity="0.5" Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="3" Stroke="White" Fill="SaddleBrown"/>
+                <Rectangle Opacity="0.5" Grid.Column="7" Grid.Row="2" Grid.ColumnSpan="3" Stroke="White" Fill="Yellow"/>
+
+                <Rectangle Opacity="0.5" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Stroke="White" Fill="Yellow"/>
+                <Rectangle Opacity="0.5" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="3" Stroke="White" Fill="Orange"/>
+                <Rectangle Opacity="0.5" Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="3" Stroke="White" Fill="OrangeRed"/>
+                <Rectangle Opacity="0.5" Grid.Column="7" Grid.Row="1" Grid.ColumnSpan="3" Stroke="White" Fill="SaddleBrown"/>
+
+                <Rectangle Opacity="0.5" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Stroke="White" Fill="SaddleBrown"/>
+                <Rectangle Opacity="0.5" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Stroke="White" Fill="Yellow"/>
+                <Rectangle Opacity="0.5" Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="3" Stroke="White" Fill="Orange"/>
+                <Rectangle Opacity="0.5" Grid.Column="7" Grid.Row="0" Grid.ColumnSpan="3" Stroke="White" Fill="OrangeRed"/>
+
+                <Rectangle Grid.Column="1" Grid.Row="0" Grid.RowSpan="4" Fill="Black" Margin="0,1"/>
+                <Rectangle Grid.Column="3" Grid.Row="0" Grid.RowSpan="4" Fill="Black" Margin="0,1"/>
+                <Rectangle Grid.Column="5" Grid.Row="0" Grid.RowSpan="4" Fill="Black" Margin="0,1"/>
+                <Rectangle Grid.Column="7" Grid.Row="0" Grid.RowSpan="4" Fill="Black" Margin="0,1"/>
+                <Rectangle Grid.Column="9" Grid.Row="0" Grid.RowSpan="4" Fill="Black" Margin="0,1"/>
+
+                <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="10" Grid.RowSpan="4"/>
+
+            </Grid>
+        </local:TemplatedWindowControl>
+        
     </Grid>
 </Page>

@@ -3,17 +3,55 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CustomWindowControl">
 
+
+
     <Style TargetType="local:TemplatedWindowControl" >
+
+        <Setter Property="BorderBrush" Value="Lime"/>
+        <Setter Property="BorderThickness" Value="2"/>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:TemplatedWindowControl">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="7"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="7"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="7"/>
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Grid.Row="0" Grid.Column="0" Fill="Transparent" Name="TopLeft"/>
+                        <Rectangle Grid.Row="0" Grid.Column="1" Fill="Transparent" Name="Top"/>
+                        <Rectangle Grid.Row="0" Grid.Column="2" Fill="Transparent" Name="TopRight"/>
+                        <Rectangle Grid.Row="1" Grid.Column="0" Fill="Transparent" Name="Left"/>
+                        <Rectangle Grid.Row="1" Grid.Column="2" Fill="Transparent" Name="Right" />
+                        <Rectangle Grid.Row="2" Grid.Column="0" Fill="Transparent" Name="BottomLeft"/>
+                        <Rectangle Grid.Row="2" Grid.Column="1" Fill="Transparent" Name="Bottom"/>
+                        <Rectangle Grid.Row="2" Grid.Column="2" Fill="Transparent" Name="BottomRight"/>
+
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              BorderThickness="{TemplateBinding BorderThickness}"
+                                              BorderBrush="{TemplateBinding BorderBrush}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                              Content="{TemplateBinding Content}" />
+                            <Button Grid.Row="1" Grid.Column="1" 
+                                    Name="btnClose" Content="X" 
+                                    Background="Red" Foreground="White" 
+                                    HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                            <Rectangle Margin="0,0,29,0" Height="32" VerticalAlignment="Top" Fill="#33000000"/>
+                        </Grid>
+                    </Grid>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>

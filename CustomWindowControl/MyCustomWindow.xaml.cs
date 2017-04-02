@@ -24,29 +24,6 @@ namespace CustomWindowControl
         {
             this.InitializeComponent();
         }
-        
-        public Object ExpandedContent
-        {
-            get { return (Object)this.GetValue(ExpandedContentProperty); }
-            set { this.SetValue(ExpandedContentProperty, value); }
-        }
-
-        public static readonly DependencyProperty ExpandedContentProperty =
-        DependencyProperty.Register(
-            "ExpandedContent",
-            typeof(Object),
-            typeof(MyCustomWindow),
-            new PropertyMetadata(null));
-
-
-
-
-
-
-
-
-
-
 
 
         private void Right_PointerEntered(object sender, PointerRoutedEventArgs e)
