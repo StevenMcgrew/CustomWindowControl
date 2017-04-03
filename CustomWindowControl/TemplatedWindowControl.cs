@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -23,14 +24,28 @@ namespace CustomWindowControl
 
         Button _closeButton;
         Grid _gridRoot;
-        Grid _gridForContent;
+        ContentPresenter _contentPresenter;
 
         protected override void OnApplyTemplate()
         {
             _closeButton = GeneralizedGetTemplateChild<Button>("btnClose");
+            _gridRoot = GeneralizedGetTemplateChild<Grid>("gridRoot");
+            _contentPresenter = GeneralizedGetTemplateChild<ContentPresenter>("ContentPresenter");
 
-            _closeButton.Click += click;
+            _closeButton.Click += _closeButton_Click;
+            _gridRoot.PointerEntered += _gridRoot_PointerEntered;
+            _gridRoot.PointerExited += _gridRoot_PointerExited;
             
+        }
+
+        private void _gridRoot_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            _contentPresenter.BorderBrush = new SolidColorBrush(Colors.Transparent);
+        }
+
+        private void _gridRoot_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            _contentPresenter.BorderBrush = new SolidColorBrush(Colors.DodgerBlue);
         }
 
         childElement GeneralizedGetTemplateChild<childElement>(string name) where childElement : DependencyObject
@@ -46,7 +61,7 @@ namespace CustomWindowControl
         }
 
 
-        private void click(object sender, RoutedEventArgs e)
+        private void _closeButton_Click(object sender, RoutedEventArgs e)
         {
             ((Panel)this.Parent).Children.Remove(this);
         }
