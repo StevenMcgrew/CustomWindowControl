@@ -22,34 +22,29 @@ namespace CustomWindowControl
         }
 
         Button _closeButton;
+        Grid _gridRoot;
+        Grid _gridForContent;
 
         protected override void OnApplyTemplate()
         {
-            _closeButton = GetTemplateChild("btnClose") as Button;
-            if (_closeButton == null)
-            {
-                throw new NullReferenceException();
-            }
+            _closeButton = GeneralizedGetTemplateChild<Button>("btnClose");
 
             _closeButton.Click += click;
-
-            //_closeButton.Click += _closeButton_Click;
+            
         }
 
-        //private void _closeButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    ((Panel)this.Parent).Children.Remove(this);
-        //}
+        childElement GeneralizedGetTemplateChild<childElement>(string name) where childElement : DependencyObject
+        {
+            childElement child = GetTemplateChild(name) as childElement;
 
-        //public ICommand CommandClose
-        //{
-        //    get { return (ICommand)GetValue(CommandCloseProperty); }
-        //    set { SetValue(CommandCloseProperty, value); }
-        //}
+            if (child == null)
+            {
+                throw new NullReferenceException(name);
+            }
 
-        //public static readonly DependencyProperty CommandCloseProperty =
-        //    DependencyProperty.Register(nameof(CommandClose), typeof(ICommand),
-        //        typeof(TemplatedWindowControl), new PropertyMetadata(null));
+            return child;
+        }
+
 
         private void click(object sender, RoutedEventArgs e)
         {

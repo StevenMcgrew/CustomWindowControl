@@ -7,14 +7,14 @@
 
     <Style TargetType="local:TemplatedWindowControl" >
 
-        <Setter Property="BorderBrush" Value="Lime"/>
+        <Setter Property="BorderBrush" Value="Aqua"/>
         <Setter Property="BorderThickness" Value="2"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:TemplatedWindowControl">
 
-                    <Grid>
+                    <Grid Name="gridRoot">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="7"/>
                             <RowDefinition Height="*"/>
@@ -34,7 +34,7 @@
                         <Rectangle Grid.Row="2" Grid.Column="1" Fill="Transparent" Name="Bottom"/>
                         <Rectangle Grid.Row="2" Grid.Column="2" Fill="Transparent" Name="BottomRight"/>
 
-                        <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid Name="gridForContent" Grid.Row="1" Grid.Column="1">
                             <ContentPresenter x:Name="ContentPresenter"
                                               BorderThickness="{TemplateBinding BorderThickness}"
                                               BorderBrush="{TemplateBinding BorderBrush}"
