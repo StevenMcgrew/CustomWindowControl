@@ -7,8 +7,92 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="Gray">
-        
+    <Grid Background="White">
+
+        <!--<Grid Name="gridRoot" Width="700" Height="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Row="0" Grid.Column="0" Name="TopLeft">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
+                        <GradientStop Color="#FFB9B9B9" Offset="0"/>
+                        <GradientStop Color="Transparent" Offset="0.396"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="0" Grid.Column="1" Name="Top">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Transparent" Offset="0"/>
+                        <GradientStop Color="#FFB9B9B9" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="0" Grid.Column="2" Name="TopRight">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                        <GradientStop Color="Transparent" Offset="0.51"/>
+                        <GradientStop Color="#FFB9B9B9" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="1" Grid.Column="0" Name="Left">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="Transparent" Offset="0"/>
+                        <GradientStop Color="#FFB9B9B9" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="1" Grid.Column="2" Name="Right">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#FFB9B9B9" Offset="0"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="2" Grid.Column="0" Name="BottomLeft">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                        <GradientStop Color="#FFB9B9B9"/>
+                        <GradientStop Color="Transparent" Offset="0.486"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="2" Grid.Column="1" Name="Bottom">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFB9B9B9" Offset="0"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Grid.Row="2" Grid.Column="2" Name="BottomRight">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="#FFB9B9B9" Offset="0"/>
+                        <GradientStop Color="Transparent" Offset="0.567"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Grid Background="DodgerBlue" Name="gridForContent" Grid.Row="1" Grid.Column="1">
+
+            </Grid>
+        </Grid>-->
+
+
+
+
         <local:TemplatedWindowControl HorizontalAlignment="Left" VerticalAlignment="Top">
             <Image Source="Assets\Apicture.png" Stretch="None"/>
         </local:TemplatedWindowControl>
@@ -92,6 +176,10 @@
 
             </Grid>
         </local:TemplatedWindowControl>
-        
+
+        <local:TemplatedWindowControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="600,400,0,0">
+            <Image Source="Assets\Bpicture.jpg" Stretch="None"/>
+        </local:TemplatedWindowControl>
+
     </Grid>
 </Page>
