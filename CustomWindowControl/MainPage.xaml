@@ -20,15 +20,15 @@
             <Button Name="btnAddWindowC" Content="Add Window C" Margin="10" Click="btnAddWindowC_Click"/>
         </StackPanel>
 
-        <Grid Name="gridForWindows" Grid.Row="1">
+        <Grid Name="gridForWindows" Grid.Row="1" Background="Beige">
 
-            <!--<Grid Background="LightPink" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image Source="Assets\screen.png" Stretch="None"/>
-            </Grid>-->
-
-            <!--<local:TemplatedWindowControl Background="#FFD316DC" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Button Content="hgfddtyhhnbb"/>
-            </local:TemplatedWindowControl>-->
+            <local:TemplatedWindowControl Background="White" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <StackPanel>
+                    <Border BorderBrush="Black" BorderThickness="1" Background="LightBlue" Height="300"/>
+                    <TextBlock Text="Testing testing"/>
+                    <Button Content="nothing" Width="200" Height="100"/>
+                </StackPanel>
+            </local:TemplatedWindowControl>
 
         </Grid>
 
