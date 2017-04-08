@@ -153,9 +153,8 @@
 
         <Button Grid.Row="1" Grid.Column="1" Name="btnForContent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource styleButtonForWindowContent}">
             <Grid>
-                
-                
-                
+
+
                 <Button Grid.Row="1" Grid.Column="1" Name="btnRemove" Content="X" Background="Red" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnRemove_Click"/>
                 <Rectangle Margin="0,0,29,0" Height="32" VerticalAlignment="Top" Fill="#33000000" ManipulationDelta="Rectangle_ManipulationDelta" ManipulationMode="TranslateX, TranslateY"/>
             </Grid>

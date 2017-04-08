@@ -27,6 +27,7 @@ namespace CustomWindowControl
         Grid _gridRoot;
         ContentPresenter _contentPresenter;
         Rectangle _rectTitleBar;
+        Rectangle _rectRight;
 
         protected override void OnApplyTemplate()
         {
@@ -34,11 +35,24 @@ namespace CustomWindowControl
             _gridRoot = GeneralizedGetTemplateChild<Grid>("gridRoot");
             _contentPresenter = GeneralizedGetTemplateChild<ContentPresenter>("ContentPresenter");
             _rectTitleBar = GeneralizedGetTemplateChild<Rectangle>("rectTitleBar");
+            _rectRight = GeneralizedGetTemplateChild<Rectangle>("Right");
 
             _closeButton.Click += _closeButton_Click;
             _gridRoot.PointerEntered += _gridRoot_PointerEntered;
             _gridRoot.PointerExited += _gridRoot_PointerExited;
+            _rectRight.PointerEntered += _rectRight_PointerEntered;
+            _rectRight.PointerExited += _rectRight_PointerExited;
             
+        }
+
+        private void _rectRight_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1);
+        }
+
+        private void _rectRight_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeWestEast, 1);
         }
 
         private void _gridRoot_PointerExited(object sender, PointerRoutedEventArgs e)

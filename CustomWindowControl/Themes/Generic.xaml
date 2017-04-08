@@ -14,7 +14,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:TemplatedWindowControl">
 
-                    <Grid Name="gridRoot">
+                    <Grid Name="gridRoot" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="7"/>
                             <RowDefinition Height="*"/>
@@ -26,74 +26,14 @@
                             <ColumnDefinition Width="7"/>
                         </Grid.ColumnDefinitions>
 
-                        <!--#region Rectangles around border -->
-
-                        <Rectangle Grid.Row="0" Grid.Column="0" Name="TopLeft">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
-                                    <GradientStop Color="Gray" Offset="0"/>
-                                    <GradientStop Color="Transparent" Offset="0.396"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="0" Grid.Column="1" Margin="0,0,0,-2" Name="Top">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="Gray" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="0" Grid.Column="2" Name="TopRight">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
-                                    <GradientStop Color="Transparent" Offset="0.51"/>
-                                    <GradientStop Color="Gray" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="1" Grid.Column="0" Margin="0,0,-2,0" Name="Left">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                    <GradientStop Color="Transparent" Offset="0"/>
-                                    <GradientStop Color="Gray" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="1" Grid.Column="2" Margin="-2,0,0,0" Name="Right">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                    <GradientStop Color="Gray" Offset="0"/>
-                                    <GradientStop Color="Transparent" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="2" Grid.Column="0" Name="BottomLeft">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
-                                    <GradientStop Color="Gray"/>
-                                    <GradientStop Color="Transparent" Offset="0.486"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="2" Grid.Column="1" Margin="0,-2,0,0" Name="Bottom">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="Gray" Offset="0"/>
-                                    <GradientStop Color="Transparent" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="2" Grid.Column="2" Name="BottomRight">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
-                                    <GradientStop Color="Gray" Offset="0"/>
-                                    <GradientStop Color="Transparent" Offset="0.567"/>
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-
-                        <!--#endregion-->
+                        <Rectangle Grid.Row="0" Grid.Column="0" Fill="Transparent" Name="TopLeft"/>
+                        <Rectangle Grid.Row="0" Grid.Column="1" Margin="0,0,0,-2" Fill="Transparent" Name="Top"/>
+                        <Rectangle Grid.Row="0" Grid.Column="2" Fill="Transparent" Name="TopRight"/>
+                        <Rectangle Grid.Row="1" Grid.Column="0" Margin="0,0,-2,0" Fill="Transparent" Name="Left"/>
+                        <Rectangle Grid.Row="1" Grid.Column="2" Margin="-2,0,0,0" Fill="Transparent" Name="Right"/>
+                        <Rectangle Grid.Row="2" Grid.Column="0" Fill="Transparent" Name="BottomLeft"/>
+                        <Rectangle Grid.Row="2" Grid.Column="1" Margin="0,-2,0,0" Fill="Transparent" Name="Bottom"/>
+                        <Rectangle Grid.Row="2" Grid.Column="2" Fill="Transparent" Name="BottomRight"/>
 
                         <Grid Name="gridForContent" Grid.Row="1" Grid.Column="1">
                             <ContentPresenter x:Name="ContentPresenter"
