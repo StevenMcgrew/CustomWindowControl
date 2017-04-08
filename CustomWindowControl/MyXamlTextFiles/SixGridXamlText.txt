@@ -1,4 +1,4 @@
-﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="grids" Width="340" Height="340" HorizontalAlignment="Left" VerticalAlignment="Top">
+﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="grids">
 
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="45"/>

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
+using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -37,12 +39,57 @@ namespace CustomWindowControl
             _rectTitleBar = GeneralizedGetTemplateChild<Rectangle>("rectTitleBar");
             _rectRight = GeneralizedGetTemplateChild<Rectangle>("Right");
 
+            _gridRoot.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
+            _rectRight.ManipulationMode = ManipulationModes.TranslateX;
+
             _closeButton.Click += _closeButton_Click;
+            _contentPresenter.Loaded += _contentPresenter_Loaded;
             _gridRoot.PointerEntered += _gridRoot_PointerEntered;
             _gridRoot.PointerExited += _gridRoot_PointerExited;
+            _rectRight.ManipulationDelta += _rectRight_ManipulationDelta;
             _rectRight.PointerEntered += _rectRight_PointerEntered;
             _rectRight.PointerExited += _rectRight_PointerExited;
-            
+
+            CompositeTransform transformRootGrid = new CompositeTransform();
+            _gridRoot.RenderTransform = transformRootGrid;
+
+        }
+
+        private void _contentPresenter_Loaded(object sender, RoutedEventArgs e)
+        {
+            //if (_contentPresenter.Content != null)
+            //{
+            //    if (_contentPresenter.Content.GetType().Equals(typeof(Image)))
+            //    {
+            //        _gridRoot.HorizontalAlignment = HorizontalAlignment.Left;
+            //        _gridRoot.VerticalAlignment = VerticalAlignment.Top;
+            //    }
+            //}
+        }
+
+        private void _rectRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement myCustomWindow = this;
+            FrameworkElement panel = (Panel)this.Parent;
+
+            //Get myCustomWindow's top left point inside panel
+            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set this variable to represent the right edge of myCustomWindow
+            double right = TopLeftPoint.X + myCustomWindow.ActualWidth;
+
+            // Combine the right edge with the movement value.
+            double rightAdjust = right + e.Delta.Translation.X;
+
+            // Set this variable to use for restricting the minimum size
+            double xadjust = myCustomWindow.ActualWidth + e.Delta.Translation.X;
+
+            // Restrict adjustment
+            if ((rightAdjust <= panel.ActualWidth) && (xadjust >= 100))
+            {
+                myCustomWindow.Width = xadjust;
+            }
         }
 
         private void _rectRight_PointerExited(object sender, PointerRoutedEventArgs e)

@@ -22,6 +22,14 @@
 
         <Grid Name="gridForWindows" Grid.Row="1">
 
+            <!--<Grid Background="LightPink" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="Assets\screen.png" Stretch="None"/>
+            </Grid>-->
+
+            <!--<local:TemplatedWindowControl Background="#FFD316DC" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Button Content="hgfddtyhhnbb"/>
+            </local:TemplatedWindowControl>-->
+
         </Grid>
 
     </Grid>

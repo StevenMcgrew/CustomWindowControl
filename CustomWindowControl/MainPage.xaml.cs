@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.Storage.FileProperties;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -30,25 +31,45 @@ namespace CustomWindowControl
             this.InitializeComponent();
         }
 
-        private void btnAddWindow_Click(object sender, RoutedEventArgs e)
+        private async void btnAddWindow_Click(object sender, RoutedEventArgs e)
         {
+            // Create the image
             Image image = new Image();
             image.Source = new BitmapImage(new Uri(BaseUri, "/Assets/Apicture.png"));
-            image.Stretch = Stretch.None;
+            image.Stretch = Stretch.Fill;
 
+            // Get the image properties
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(BaseUri, "/Assets/Apicture.png"));
+            ImageProperties imageProperties = await file.Properties.GetImagePropertiesAsync();
+
+            // Create the window and set the image as it's content
             TemplatedWindowControl window = new TemplatedWindowControl();
+            window.HorizontalAlignment = HorizontalAlignment.Left;
+            window.VerticalAlignment = VerticalAlignment.Top;
+            window.Width = imageProperties.Width;
+            window.Height = imageProperties.Height;
             window.Content = image;
 
             gridForWindows.Children.Add(window);
         }
 
-        private void btnAddWindowB_Click(object sender, RoutedEventArgs e)
+        private async void btnAddWindowB_Click(object sender, RoutedEventArgs e)
         {
+            // Create the image
             Image image = new Image();
             image.Source = new BitmapImage(new Uri(BaseUri, "/Assets/Bpicture.jpg"));
-            image.Stretch = Stretch.None;
+            image.Stretch = Stretch.Fill;
 
+            // Get the image properties
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(BaseUri, "/Assets/Bpicture.jpg"));
+            ImageProperties imageProperties = await file.Properties.GetImagePropertiesAsync();
+
+            // Create the window and set the image as it's content
             TemplatedWindowControl window = new TemplatedWindowControl();
+            window.HorizontalAlignment = HorizontalAlignment.Left;
+            window.VerticalAlignment = VerticalAlignment.Top;
+            window.Width = imageProperties.Width;
+            window.Height = imageProperties.Height;
             window.Content = image;
 
             gridForWindows.Children.Add(window);
@@ -65,7 +86,12 @@ namespace CustomWindowControl
             // Create the object from that string
             object myAdditionalContent = XamlReader.Load(myXamlString);
 
+            // Create the window and set the xaml file object as the content
             TemplatedWindowControl window = new TemplatedWindowControl();
+            window.HorizontalAlignment = HorizontalAlignment.Left;
+            window.VerticalAlignment = VerticalAlignment.Top;
+            window.Width = gridForWindows.ActualWidth / 2;
+            window.Height = gridForWindows.ActualHeight / 2;
             window.Content = myAdditionalContent;
 
             gridForWindows.Children.Add(window);

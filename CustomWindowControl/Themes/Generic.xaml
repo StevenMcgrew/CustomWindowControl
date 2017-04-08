@@ -9,21 +9,22 @@
 
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Background" Value="Transparent"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:TemplatedWindowControl">
 
-                    <Grid Name="gridRoot" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid Name="gridRoot">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="7"/>
+                            <RowDefinition Height="9"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="7"/>
+                            <RowDefinition Height="9"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="7"/>
+                            <ColumnDefinition Width="9"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="7"/>
+                            <ColumnDefinition Width="9"/>
                         </Grid.ColumnDefinitions>
 
                         <Rectangle Grid.Row="0" Grid.Column="0" Fill="Transparent" Name="TopLeft"/>
@@ -35,7 +36,7 @@
                         <Rectangle Grid.Row="2" Grid.Column="1" Margin="0,-2,0,0" Fill="Transparent" Name="Bottom"/>
                         <Rectangle Grid.Row="2" Grid.Column="2" Fill="Transparent" Name="BottomRight"/>
 
-                        <Grid Name="gridForContent" Grid.Row="1" Grid.Column="1">
+                        <Grid Name="gridForContent" Grid.Row="1" Grid.Column="1" Background="{TemplateBinding Background}">
                             <ContentPresenter x:Name="ContentPresenter"
                                               BorderThickness="{TemplateBinding BorderThickness}"
                                               BorderBrush="{TemplateBinding BorderBrush}"

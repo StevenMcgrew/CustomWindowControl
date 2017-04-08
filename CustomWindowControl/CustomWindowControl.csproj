@@ -114,6 +114,7 @@
   <ItemGroup>
     <Content Include="Assets\Apicture.png" />
     <Content Include="Assets\Bpicture.jpg" />
+    <Content Include="Assets\screen.png" />
     <Content Include="MyXamlTextFiles\SixGridXamlText.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
