@@ -31,6 +31,13 @@ namespace CustomWindowControl
         ContentPresenter _contentPresenter;
         Rectangle _rectTitleBar;
         Rectangle _rectRight;
+        Rectangle _rectTopLeft;
+        Rectangle _rectTop;
+        Rectangle _rectTopRight;
+        Rectangle _rectLeft;
+        Rectangle _rectBottomLeft;
+        Rectangle _rectBottom;
+        Rectangle _rectBottomRight;
 
 
         protected override void OnApplyTemplate()
@@ -40,22 +47,101 @@ namespace CustomWindowControl
             _contentPresenter = GeneralizedGetTemplateChild<ContentPresenter>("ContentPresenter");
             _rectTitleBar = GeneralizedGetTemplateChild<Rectangle>("rectTitleBar");
             _rectRight = GeneralizedGetTemplateChild<Rectangle>("Right");
+            _rectTopLeft = GeneralizedGetTemplateChild<Rectangle>("TopLeft");
+            _rectTop = GeneralizedGetTemplateChild<Rectangle>("Top");
+            _rectTopRight = GeneralizedGetTemplateChild<Rectangle>("TopRight");
+            _rectLeft = GeneralizedGetTemplateChild<Rectangle>("Left");
+            _rectBottomLeft = GeneralizedGetTemplateChild<Rectangle>("BottomLeft");
+            _rectBottom = GeneralizedGetTemplateChild<Rectangle>("Bottom");
+            _rectBottomRight = GeneralizedGetTemplateChild<Rectangle>("BottomRight");
 
             this.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
             _rectTitleBar.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
             _gridRoot.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
             _rectRight.ManipulationMode = ManipulationModes.TranslateX;
+            _rectTopLeft.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
+            _rectTop.ManipulationMode = ManipulationModes.TranslateY;
+            _rectTopRight.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
+            _rectLeft.ManipulationMode = ManipulationModes.TranslateX;
+            _rectBottomLeft.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
+            _rectBottom.ManipulationMode = ManipulationModes.TranslateY;
+            _rectBottomRight.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
+
 
             _rectTitleBar.ManipulationDelta += _rectTitleBar_ManipulationDelta;
             _closeButton.Click += _closeButton_Click;
             _gridRoot.PointerEntered += _gridRoot_PointerEntered;
             _gridRoot.PointerExited += _gridRoot_PointerExited;
+
             _rectRight.ManipulationDelta += _rectRight_ManipulationDelta;
-            _rectRight.PointerEntered += _rectRight_PointerEntered;
-            _rectRight.PointerExited += _rectRight_PointerExited;
+            _rectRight.PointerEntered += _PointerEntered;
+            _rectRight.PointerExited += _PointerExited;
+
+            _rectTopLeft.ManipulationDelta += _rectTopLeft_ManipulationDelta;
+            _rectTopLeft.PointerEntered += _PointerEntered;
+            _rectTopLeft.PointerExited += _PointerExited;
+
+            _rectTop.ManipulationDelta += _rectTop_ManipulationDelta;
+            _rectTop.PointerEntered += _PointerEntered;
+            _rectTop.PointerExited += _PointerExited;
+
+            _rectTopRight.ManipulationDelta += _rectTopRight_ManipulationDelta;
+            _rectTopRight.PointerEntered += _PointerEntered;
+            _rectTopRight.PointerExited += _PointerExited;
+
+            _rectLeft.ManipulationDelta += _rectLeft_ManipulationDelta;
+            _rectLeft.PointerEntered += _PointerEntered;
+            _rectLeft.PointerExited += _PointerExited;
+
+            _rectBottomLeft.ManipulationDelta += _rectBottomLeft_ManipulationDelta;
+            _rectBottomLeft.PointerEntered += _PointerEntered;
+            _rectBottomLeft.PointerExited += _PointerExited;
+
+            _rectBottom.ManipulationDelta += _rectBottom_ManipulationDelta;
+            _rectBottom.PointerEntered += _PointerEntered;
+            _rectBottom.PointerExited += _PointerExited;
+
+            _rectBottomRight.ManipulationDelta += _rectBottomRight_ManipulationDelta;
+            _rectBottomRight.PointerEntered += _PointerEntered;
+            _rectBottomRight.PointerExited += _PointerExited;
 
             transformWindow = new CompositeTransform();
             this.RenderTransform = transformWindow;
+        }
+
+        private void _rectBottomRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void _rectBottom_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void _rectBottomLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void _rectLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void _rectTopRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void _rectTop_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void _rectTopLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void _rectTitleBar_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
@@ -116,14 +202,42 @@ namespace CustomWindowControl
             }
         }
 
-        private void _rectRight_PointerExited(object sender, PointerRoutedEventArgs e)
+        private void _PointerExited(object sender, PointerRoutedEventArgs e)
         {
             Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1);
         }
 
-        private void _rectRight_PointerEntered(object sender, PointerRoutedEventArgs e)
+        private void _PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeWestEast, 1);
+            string name = (sender as Rectangle).Name;
+
+            switch (name)
+            {
+                case "BottomRight":
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeNorthwestSoutheast, 1);
+                    break;
+                case "Right":
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeWestEast, 1);
+                    break;
+                case "Bottom":
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeNorthSouth, 1);
+                    break;
+                case "Top":
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeNorthSouth, 1);
+                    break;
+                case "Left":
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeWestEast, 1);
+                    break;
+                case "TopLeft":
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeNorthwestSoutheast, 1);
+                    break;
+                case "TopRight":
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeNortheastSouthwest, 1);
+                    break;
+                case "BottomLeft":
+                    Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.SizeNortheastSouthwest, 1);
+                    break;
+            }
         }
 
         private void _gridRoot_PointerExited(object sender, PointerRoutedEventArgs e)
