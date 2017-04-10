@@ -14,19 +14,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Background="#FFCBCBCB">
             <Button Name="btnAddWindowA" Content="Add Window A" Click="btnAddWindow_Click" Margin="10"/>
             <Button Name="btnAddWindowB" Content="Add Window B" Click="btnAddWindowB_Click" Margin="10"/>
             <Button Name="btnAddWindowC" Content="Add Window C" Margin="10" Click="btnAddWindowC_Click"/>
         </StackPanel>
 
-        <Grid Name="gridForWindows" Grid.Row="1" Background="Beige">
+        <Grid Name="gridForWindows" Grid.Row="1" Background="Beige" Margin="100">
 
             <local:TemplatedWindowControl Background="White" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <StackPanel>
                     <Border BorderBrush="Black" BorderThickness="1" Background="LightBlue" Height="300"/>
                     <TextBlock Text="Testing testing"/>
-                    <Button Content="nothing" Width="200" Height="100"/>
+                    <Button Content="Button" Width="200" Height="100"/>
                 </StackPanel>
             </local:TemplatedWindowControl>
 

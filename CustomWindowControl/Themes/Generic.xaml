@@ -127,6 +127,7 @@
                                               ContentTemplate="{TemplateBinding ContentTemplate}" 
                                               ContentTransitions="{TemplateBinding ContentTransitions}" 
                                               Content="{TemplateBinding Content}" />
+                            <TextBlock Name="testText" Margin="30"/>
                             <Rectangle Visibility="Collapsed" Name="rectTitleBar" Margin="2,2,2,0" Height="29" VerticalAlignment="Top" Fill="#B2007ACC"/>
                             <Button Visibility="Collapsed" Grid.Row="1" Grid.Column="1" Name="btnClose" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0"
                                     Style="{StaticResource styleCloseButton}">
