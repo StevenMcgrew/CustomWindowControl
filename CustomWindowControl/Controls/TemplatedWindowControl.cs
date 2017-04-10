@@ -14,8 +14,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
-// The Templated Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234235
-
 namespace CustomWindowControl
 {
     public sealed class TemplatedWindowControl : ContentControl
@@ -27,7 +25,9 @@ namespace CustomWindowControl
 
         CompositeTransform transformWindow;
         Button _closeButton;
+        Button _restoreButton;
         Grid _gridRoot;
+        Grid _gridTitleBar;
         ContentPresenter _contentPresenter;
         Rectangle _rectTitleBar;
         Rectangle _rectRight;
@@ -38,13 +38,17 @@ namespace CustomWindowControl
         Rectangle _rectBottomLeft;
         Rectangle _rectBottom;
         Rectangle _rectBottomRight;
-        TextBlock _testText;
+
+        public double originalWidth { get; set; }
+        public double originalHeight { get; set; }
 
 
         protected override void OnApplyTemplate()
         {
             _closeButton = GeneralizedGetTemplateChild<Button>("btnClose");
+            _restoreButton = GeneralizedGetTemplateChild<Button>("btnRestore");
             _gridRoot = GeneralizedGetTemplateChild<Grid>("gridRoot");
+            _gridTitleBar = GeneralizedGetTemplateChild<Grid>("gridTitleBar");
             _contentPresenter = GeneralizedGetTemplateChild<ContentPresenter>("ContentPresenter");
             _rectTitleBar = GeneralizedGetTemplateChild<Rectangle>("rectTitleBar");
             _rectRight = GeneralizedGetTemplateChild<Rectangle>("Right");
@@ -55,7 +59,6 @@ namespace CustomWindowControl
             _rectBottomLeft = GeneralizedGetTemplateChild<Rectangle>("BottomLeft");
             _rectBottom = GeneralizedGetTemplateChild<Rectangle>("Bottom");
             _rectBottomRight = GeneralizedGetTemplateChild<Rectangle>("BottomRight");
-            _testText = GeneralizedGetTemplateChild<TextBlock>("testText");
 
             this.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
             _rectTitleBar.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
@@ -69,9 +72,10 @@ namespace CustomWindowControl
             _rectBottom.ManipulationMode = ManipulationModes.TranslateY;
             _rectBottomRight.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
 
-
+            this.Loaded += TemplatedWindowControl_Loaded;
             _rectTitleBar.ManipulationDelta += _rectTitleBar_ManipulationDelta;
             _closeButton.Click += _closeButton_Click;
+            _restoreButton.Click += _restoreButton_Click;
             _gridRoot.PointerEntered += _gridRoot_PointerEntered;
             _gridRoot.PointerExited += _gridRoot_PointerExited;
 
@@ -111,222 +115,41 @@ namespace CustomWindowControl
             this.RenderTransform = transformWindow;
         }
 
-        private void _rectBottomRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        private void _restoreButton_Click(object sender, RoutedEventArgs e)
         {
-            FrameworkElement Alice = this;
-            FrameworkElement Wonderland = (Panel)this.Parent;
-
-            // Get Alice's top left point in relation to Wonderland.
-            GeneralTransform gt = Alice.TransformToVisual(Wonderland);
-            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
-
-            // Set these variables to represent the edges of Alice that will be adjusted.
-            double right = TopLeftPoint.X + Alice.ActualWidth;
-            double bottom = TopLeftPoint.Y + Alice.ActualHeight;
-
-            // Combine the adjustable edges with the movement value.
-            double rightAdjust = right + e.Delta.Translation.X;
-            double bottomAdjust = bottom + e.Delta.Translation.Y;
-
-            // Set these to use for restricting the minimum size
-            double yadjust = Alice.ActualHeight + e.Delta.Translation.Y;
-            double xadjust = Alice.ActualWidth + e.Delta.Translation.X;
-
-            // Restrict adjustments
-            if ((rightAdjust <= Wonderland.ActualWidth) && (xadjust >= 100))
-            {
-                Alice.Width = xadjust;
-            }
-
-            if ((bottomAdjust <= Wonderland.ActualHeight) && (yadjust >= 100))
-            {
-                Alice.Height = yadjust;
-            }
+            transformWindow.TranslateX = 0;
+            transformWindow.TranslateY = 0;
+            this.Width = originalWidth;
+            this.Height = originalHeight;
         }
 
-        private void _rectBottom_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        private void TemplatedWindowControl_Loaded(object sender, RoutedEventArgs e)
         {
-            FrameworkElement myCustomWindow = this;
-            FrameworkElement panel = (Panel)this.Parent;
-
-            //Get myCustomWindow's top left point inside panel
-            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
-            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
-
-            // Set this variable to represent the bottom edge of myCustomWindow
-            double bottom = TopLeftPoint.Y + myCustomWindow.ActualHeight;
-
-            // Combine the bottom edge with the movement value.
-            double bottomAdjust = bottom + e.Delta.Translation.Y;
-
-            // Set this variable to use for restricting the minimum size
-            double yadjust = myCustomWindow.ActualHeight + e.Delta.Translation.Y;
-
-            // Restrict adjustment
-            if ((bottomAdjust <= panel.ActualHeight) && (yadjust >= 100))
-            {
-                myCustomWindow.Height = yadjust;
-            }
+            originalWidth = this.ActualWidth;
+            originalHeight = this.ActualHeight;
+            this.SizeChanged += TemplatedWindowControl_SizeChanged;
         }
 
-        private void _rectBottomLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        private void TemplatedWindowControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            _restoreButton.IsEnabled = true;
         }
 
-        private void _rectLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        private void _closeButton_Click(object sender, RoutedEventArgs e)
         {
-            FrameworkElement myCustomWindow = this;
-            FrameworkElement panel = (Panel)this.Parent;
-
-            //Get myCustomWindow's top left point inside panel
-            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
-            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
-
-            // Set this variable to represent the left edge of myCustomWindow
-            double left = TopLeftPoint.X;
-
-            // Combine the left edge with the movement value.
-            double leftAdjust = left + e.Delta.Translation.X;
-
-            // Set this variable to use for restricting the minimum size
-            double xadjust = myCustomWindow.ActualWidth - e.Delta.Translation.X;
-
-            // Restrict adjustment
-            if ((leftAdjust >= 0) && (xadjust >= 100))
-            {
-                transformWindow.TranslateX += e.Delta.Translation.X;
-                myCustomWindow.Width = myCustomWindow.ActualWidth - e.Delta.Translation.X;
-            }
+            ((Panel)this.Parent).Children.Remove(this);
         }
 
-        private void _rectTopRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        private void _gridRoot_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            _contentPresenter.BorderBrush = GetColorFromHex("#B2007ACC");
+            _gridTitleBar.Visibility = Visibility.Visible;
         }
 
-        private void _rectTop_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        private void _gridRoot_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            FrameworkElement myCustomWindow = this;
-            FrameworkElement panel = (Panel)this.Parent;
-
-            //Get myCustomWindow's top left point inside panel
-            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
-            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
-
-            // Set this variable to represent the top edge of myCustomWindow
-            double top = TopLeftPoint.Y;
-
-            // Combine the top edge with the movement value.
-            double topAdjust = top + e.Delta.Translation.Y;
-
-            // Set this variable to use for restricting the minimum size
-            double yadjust = myCustomWindow.ActualHeight - e.Delta.Translation.Y;
-
-            // Restrict adjustment
-            if ((topAdjust >= 0) && (yadjust >= 100))
-            {
-                transformWindow.TranslateY += e.Delta.Translation.Y;
-                myCustomWindow.Height = myCustomWindow.ActualHeight - e.Delta.Translation.Y;
-            }
-        }
-
-        private void _rectTopLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            FrameworkElement Alice = this;
-            FrameworkElement Wonderland = (Panel)this.Parent;
-
-            // Get Alice's top left point in relation to Wonderland.
-            GeneralTransform gt = Alice.TransformToVisual(Wonderland);
-            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
-
-            // Set these variables to represent the edges of Alice that will be adjusted.
-            double left = TopLeftPoint.X;
-            double top = TopLeftPoint.Y;
-
-            // Combine the adjustable edges with the movement value.
-            double leftAdjust = left + e.Delta.Translation.X;
-            double topAdjust = top + e.Delta.Translation.Y;
-
-            // Set these to use for restricting the minimum size
-            double yadjust = Alice.ActualHeight - e.Delta.Translation.Y;
-            double xadjust = Alice.ActualWidth - e.Delta.Translation.X;
-
-            // Restrict adjustments
-            if ((leftAdjust >= 0) && (xadjust >= 100))
-            {
-                transformWindow.TranslateX += e.Delta.Translation.X;
-                Alice.Width = xadjust;
-            }
-
-            if ((topAdjust >= 0) && (yadjust >= 100))
-            {
-                transformWindow.TranslateY += e.Delta.Translation.Y;
-                Alice.Height = yadjust;
-            }
-        }
-
-        private void _rectTitleBar_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            FrameworkElement prisoner = this;
-            FrameworkElement jail = (Panel)this.Parent;
-
-            // Get the top left point of the prisoner in relationship to the jail
-            GeneralTransform gt = prisoner.TransformToVisual(jail);
-            Point prisonerTopLeftPoint = gt.TransformPoint(new Point(0, 0));
-
-            // Set these variables to represent the edges of the prisoner
-            double left = prisonerTopLeftPoint.X + 9;
-            double top = prisonerTopLeftPoint.Y + 9;
-            double right = left + prisoner.ActualWidth - 18;
-            double bottom = top + prisoner.ActualHeight - 18;
-
-            // Combine those edges with the movement value (When these are used in the next step, it keeps the prisoner from getting stuck at the jail boundary)
-            double leftAdjust = left + e.Delta.Translation.X;
-            double topAdjust = top + e.Delta.Translation.Y;
-            double rightAdjust = right + e.Delta.Translation.X;
-            double bottomAdjust = bottom + e.Delta.Translation.Y;
-
-            // Allow prisoner movement if within jail boundary (Use two separate "if" statements here, so the movement isn't sticky at the boundary)
-            if ((leftAdjust >= 0) && (rightAdjust <= jail.ActualWidth))
-            {
-                transformWindow.TranslateX += e.Delta.Translation.X;
-            }
-
-            if ((topAdjust >= 0) && (bottomAdjust <= jail.ActualHeight))
-            {
-                transformWindow.TranslateY += e.Delta.Translation.Y;
-            }
-        }
-
-        private void _rectRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            FrameworkElement myCustomWindow = this;
-            FrameworkElement panel = (Panel)this.Parent;
-
-            //Get myCustomWindow's top left point inside panel
-            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
-            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
-
-            // Set this variable to represent the right edge of myCustomWindow
-            double right = TopLeftPoint.X + myCustomWindow.ActualWidth;
-
-            // Combine the right edge with the movement value.
-            double rightAdjust = right + e.Delta.Translation.X;
-
-            // Set this variable to use for restricting the minimum size
-            double xadjust = myCustomWindow.ActualWidth + e.Delta.Translation.X;
-
-            // Restrict adjustment
-            if ((rightAdjust <= panel.ActualWidth) && (xadjust >= 100))
-            {
-                myCustomWindow.Width = xadjust;
-            }
-        }
-
-        private void _PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1);
+            _contentPresenter.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            _gridTitleBar.Visibility = Visibility.Visible;
         }
 
         private void _PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -362,19 +185,285 @@ namespace CustomWindowControl
             }
         }
 
-        private void _gridRoot_PointerExited(object sender, PointerRoutedEventArgs e)
+        private void _PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            _contentPresenter.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            _closeButton.Visibility = Visibility.Collapsed;
-            _rectTitleBar.Visibility = Visibility.Collapsed;
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 1);
         }
 
-        private void _gridRoot_PointerEntered(object sender, PointerRoutedEventArgs e)
+        #region ManipulationDelta handlers
+
+        private void _rectTitleBar_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-            _contentPresenter.BorderBrush = GetColorFromHex("#B2007ACC");
-            _closeButton.Visibility = Visibility.Visible;
-            _rectTitleBar.Visibility = Visibility.Visible;
+            FrameworkElement prisoner = this;
+            FrameworkElement jail = (Panel)this.Parent;
+
+            // Get the top left point of the prisoner in relationship to the jail
+            GeneralTransform gt = prisoner.TransformToVisual(jail);
+            Point prisonerTopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set these variables to represent the edges of the prisoner
+            double left = prisonerTopLeftPoint.X + 9;
+            double top = prisonerTopLeftPoint.Y + 9;
+            double right = left + prisoner.ActualWidth - 18;
+            double bottom = top + prisoner.ActualHeight - 18;
+
+            // Combine those edges with the movement value (When these are used in the next step, it keeps the prisoner from getting stuck at the jail boundary)
+            double leftAdjust = left + e.Delta.Translation.X;
+            double topAdjust = top + e.Delta.Translation.Y;
+            double rightAdjust = right + e.Delta.Translation.X;
+            double bottomAdjust = bottom + e.Delta.Translation.Y;
+
+            // Allow prisoner movement if within jail boundary (Use two separate "if" statements here, so the movement isn't sticky at the boundary)
+            if ((leftAdjust >= 0) && (rightAdjust <= jail.ActualWidth))
+            {
+                transformWindow.TranslateX += e.Delta.Translation.X;
+            }
+
+            if ((topAdjust >= 0) && (bottomAdjust <= jail.ActualHeight))
+            {
+                transformWindow.TranslateY += e.Delta.Translation.Y;
+            }
         }
+
+        private void _rectBottomRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement Alice = this;
+            FrameworkElement Wonderland = (Panel)this.Parent;
+
+            // Get Alice's top left point in relation to Wonderland.
+            GeneralTransform gt = Alice.TransformToVisual(Wonderland);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set these variables to represent the edges of Alice that will be adjusted.
+            double right = TopLeftPoint.X + Alice.ActualWidth;
+            double bottom = TopLeftPoint.Y + Alice.ActualHeight;
+
+            // Combine the adjustable edges with the movement value.
+            double rightAdjust = right + e.Delta.Translation.X;
+            double bottomAdjust = bottom + e.Delta.Translation.Y;
+
+            // Set these to use for restricting the minimum size
+            double yadjust = Alice.ActualHeight + e.Delta.Translation.Y;
+            double xadjust = Alice.ActualWidth + e.Delta.Translation.X;
+
+            // Restrict adjustments
+            if ((rightAdjust <= Wonderland.ActualWidth + 9) && (xadjust >= 100))
+            {
+                Alice.Width = xadjust;
+            }
+
+            if ((bottomAdjust <= Wonderland.ActualHeight + 9) && (yadjust >= 100))
+            {
+                Alice.Height = yadjust;
+            }
+        }
+
+        private void _rectBottom_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement myCustomWindow = this;
+            FrameworkElement panel = (Panel)this.Parent;
+
+            //Get myCustomWindow's top left point inside panel
+            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set this variable to represent the bottom edge of myCustomWindow
+            double bottom = TopLeftPoint.Y + myCustomWindow.ActualHeight;
+
+            // Combine the bottom edge with the movement value.
+            double bottomAdjust = bottom + e.Delta.Translation.Y;
+
+            // Set this variable to use for restricting the minimum size
+            double yadjust = myCustomWindow.ActualHeight + e.Delta.Translation.Y;
+
+            // Restrict adjustment
+            if ((bottomAdjust <= panel.ActualHeight + 9) && (yadjust >= 100))
+            {
+                myCustomWindow.Height = yadjust;
+            }
+        }
+
+        private void _rectBottomLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement Alice = this;
+            FrameworkElement Wonderland = (Panel)this.Parent;
+
+            // Get Alice's top left point in relation to Wonderland.
+            GeneralTransform gt = Alice.TransformToVisual(Wonderland);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set these variables to represent the edges of Alice that will be adjusted.
+            double left = TopLeftPoint.X;
+            double bottom = TopLeftPoint.Y + Alice.ActualHeight;
+
+            // Combine the adjustable edges with the movement value.
+            double leftAdjust = left + e.Delta.Translation.X;
+            double bottomAdjust = bottom + e.Delta.Translation.Y;
+
+            // Set these to use for restricting the minimum size
+            double yadjust = Alice.ActualHeight + e.Delta.Translation.Y;
+            double xadjust = Alice.ActualWidth - e.Delta.Translation.X;
+
+            // Restrict adjustments
+            if ((leftAdjust >= -9) && (xadjust >= 100))
+            {
+                transformWindow.TranslateX += e.Delta.Translation.X;
+                Alice.Width = xadjust;
+            }
+
+            if ((bottomAdjust <= Wonderland.ActualHeight + 9) && (yadjust >= 100))
+            {
+                Alice.Height = yadjust;
+            }
+        }
+
+        private void _rectLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement myCustomWindow = this;
+            FrameworkElement panel = (Panel)this.Parent;
+
+            //Get myCustomWindow's top left point inside panel
+            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set this variable to represent the left edge of myCustomWindow
+            double left = TopLeftPoint.X;
+
+            // Combine the left edge with the movement value.
+            double leftAdjust = left + e.Delta.Translation.X;
+
+            // Set this variable to use for restricting the minimum size
+            double xadjust = myCustomWindow.ActualWidth - e.Delta.Translation.X;
+
+            // Restrict adjustment
+            if ((leftAdjust >= -9) && (xadjust >= 100))
+            {
+                transformWindow.TranslateX += e.Delta.Translation.X;
+                myCustomWindow.Width = myCustomWindow.ActualWidth - e.Delta.Translation.X;
+            }
+        }
+
+        private void _rectTopRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement Alice = this;
+            FrameworkElement Wonderland = (Panel)this.Parent;
+
+            // Get Alice's top left point in relation to Wonderland.
+            GeneralTransform gt = Alice.TransformToVisual(Wonderland);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set these variables to represent the edges of Alice that will be adjusted.
+            double right = TopLeftPoint.X + Alice.ActualWidth;
+            double top = TopLeftPoint.Y;
+
+            // Combine the adjustable edges with the movement value.
+            double rightAdjust = right + e.Delta.Translation.X;
+            double topAdjust = top + e.Delta.Translation.Y;
+
+            // Set these to use for restricting the minimum size
+            double yadjust = Alice.ActualHeight - e.Delta.Translation.Y;
+            double xadjust = Alice.ActualWidth + e.Delta.Translation.X;
+
+            // Restrict adjustments
+            if ((rightAdjust <= Wonderland.ActualWidth + 9) && (xadjust >= 100))
+            {
+                Alice.Width = xadjust;
+            }
+
+            if ((topAdjust >= -9) && (yadjust >= 100))
+            {
+                transformWindow.TranslateY += e.Delta.Translation.Y;
+                Alice.Height = yadjust;
+            }
+        }
+
+        private void _rectTop_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement myCustomWindow = this;
+            FrameworkElement panel = (Panel)this.Parent;
+
+            //Get myCustomWindow's top left point inside panel
+            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set this variable to represent the top edge of myCustomWindow
+            double top = TopLeftPoint.Y;
+
+            // Combine the top edge with the movement value.
+            double topAdjust = top + e.Delta.Translation.Y;
+
+            // Set this variable to use for restricting the minimum size
+            double yadjust = myCustomWindow.ActualHeight - e.Delta.Translation.Y;
+
+            // Restrict adjustment
+            if ((topAdjust >= -9) && (yadjust >= 100))
+            {
+                transformWindow.TranslateY += e.Delta.Translation.Y;
+                myCustomWindow.Height = myCustomWindow.ActualHeight - e.Delta.Translation.Y;
+            }
+        }
+
+        private void _rectTopLeft_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement Alice = this;
+            FrameworkElement Wonderland = (Panel)this.Parent;
+
+            // Get Alice's top left point in relation to Wonderland.
+            GeneralTransform gt = Alice.TransformToVisual(Wonderland);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set these variables to represent the edges of Alice that will be adjusted.
+            double left = TopLeftPoint.X;
+            double top = TopLeftPoint.Y;
+
+            // Combine the adjustable edges with the movement value.
+            double leftAdjust = left + e.Delta.Translation.X;
+            double topAdjust = top + e.Delta.Translation.Y;
+
+            // Set these to use for restricting the minimum size
+            double yadjust = Alice.ActualHeight - e.Delta.Translation.Y;
+            double xadjust = Alice.ActualWidth - e.Delta.Translation.X;
+
+            // Restrict adjustments
+            if ((leftAdjust >= -9) && (xadjust >= 100))
+            {
+                transformWindow.TranslateX += e.Delta.Translation.X;
+                Alice.Width = xadjust;
+            }
+
+            if ((topAdjust >= -9) && (yadjust >= 100))
+            {
+                transformWindow.TranslateY += e.Delta.Translation.Y;
+                Alice.Height = yadjust;
+            }
+        }
+
+        private void _rectRight_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            FrameworkElement myCustomWindow = this;
+            FrameworkElement panel = (Panel)this.Parent;
+
+            //Get myCustomWindow's top left point inside panel
+            GeneralTransform gt = myCustomWindow.TransformToVisual(panel);
+            Point TopLeftPoint = gt.TransformPoint(new Point(0, 0));
+
+            // Set this variable to represent the right edge of myCustomWindow
+            double right = TopLeftPoint.X + myCustomWindow.ActualWidth;
+
+            // Combine the right edge with the movement value.
+            double rightAdjust = right + e.Delta.Translation.X;
+
+            // Set this variable to use for restricting the minimum size
+            double xadjust = myCustomWindow.ActualWidth + e.Delta.Translation.X;
+
+            // Restrict adjustment
+            if ((rightAdjust <= panel.ActualWidth + 9) && (xadjust >= 100))
+            {
+                myCustomWindow.Width = xadjust;
+            }
+        }
+
+        #endregion
 
         childElement GeneralizedGetTemplateChild<childElement>(string name) where childElement : DependencyObject
         {
@@ -386,11 +475,6 @@ namespace CustomWindowControl
             }
 
             return child;
-        }
-
-        private void _closeButton_Click(object sender, RoutedEventArgs e)
-        {
-            ((Panel)this.Parent).Children.Remove(this);
         }
 
         private SolidColorBrush GetColorFromHex(string hexColor)
