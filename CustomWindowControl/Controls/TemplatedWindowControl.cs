@@ -25,7 +25,6 @@ namespace CustomWindowControl
 
         CompositeTransform transformWindow;
         Button _closeButton;
-        Button _restoreButton;
         Grid _gridRoot;
         Grid _gridTitleBar;
         ContentPresenter _contentPresenter;
@@ -39,14 +38,10 @@ namespace CustomWindowControl
         Rectangle _rectBottom;
         Rectangle _rectBottomRight;
 
-        public double originalWidth { get; set; }
-        public double originalHeight { get; set; }
-
 
         protected override void OnApplyTemplate()
         {
             _closeButton = GeneralizedGetTemplateChild<Button>("btnClose");
-            _restoreButton = GeneralizedGetTemplateChild<Button>("btnRestore");
             _gridRoot = GeneralizedGetTemplateChild<Grid>("gridRoot");
             _gridTitleBar = GeneralizedGetTemplateChild<Grid>("gridTitleBar");
             _contentPresenter = GeneralizedGetTemplateChild<ContentPresenter>("ContentPresenter");
@@ -71,11 +66,9 @@ namespace CustomWindowControl
             _rectBottomLeft.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
             _rectBottom.ManipulationMode = ManipulationModes.TranslateY;
             _rectBottomRight.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
-
-            this.Loaded += TemplatedWindowControl_Loaded;
+            
             _rectTitleBar.ManipulationDelta += _rectTitleBar_ManipulationDelta;
             _closeButton.Click += _closeButton_Click;
-            _restoreButton.Click += _restoreButton_Click;
             _gridRoot.PointerEntered += _gridRoot_PointerEntered;
             _gridRoot.PointerExited += _gridRoot_PointerExited;
 
@@ -113,26 +106,6 @@ namespace CustomWindowControl
 
             transformWindow = new CompositeTransform();
             this.RenderTransform = transformWindow;
-        }
-
-        private void _restoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            transformWindow.TranslateX = 0;
-            transformWindow.TranslateY = 0;
-            this.Width = originalWidth;
-            this.Height = originalHeight;
-        }
-
-        private void TemplatedWindowControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            originalWidth = this.ActualWidth;
-            originalHeight = this.ActualHeight;
-            this.SizeChanged += TemplatedWindowControl_SizeChanged;
-        }
-
-        private void TemplatedWindowControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            _restoreButton.IsEnabled = true;
         }
 
         private void _closeButton_Click(object sender, RoutedEventArgs e)
@@ -247,12 +220,12 @@ namespace CustomWindowControl
             double xadjust = Alice.ActualWidth + e.Delta.Translation.X;
 
             // Restrict adjustments
-            if ((rightAdjust <= Wonderland.ActualWidth + 9) && (xadjust >= 100))
+            if ((rightAdjust <= Wonderland.ActualWidth + 8) && (xadjust >= 100))
             {
                 Alice.Width = xadjust;
             }
 
-            if ((bottomAdjust <= Wonderland.ActualHeight + 9) && (yadjust >= 100))
+            if ((bottomAdjust <= Wonderland.ActualHeight + 8) && (yadjust >= 100))
             {
                 Alice.Height = yadjust;
             }
@@ -277,7 +250,7 @@ namespace CustomWindowControl
             double yadjust = myCustomWindow.ActualHeight + e.Delta.Translation.Y;
 
             // Restrict adjustment
-            if ((bottomAdjust <= panel.ActualHeight + 9) && (yadjust >= 100))
+            if ((bottomAdjust <= panel.ActualHeight + 8) && (yadjust >= 100))
             {
                 myCustomWindow.Height = yadjust;
             }
@@ -305,13 +278,13 @@ namespace CustomWindowControl
             double xadjust = Alice.ActualWidth - e.Delta.Translation.X;
 
             // Restrict adjustments
-            if ((leftAdjust >= -9) && (xadjust >= 100))
+            if ((leftAdjust >= -8) && (xadjust >= 100))
             {
                 transformWindow.TranslateX += e.Delta.Translation.X;
                 Alice.Width = xadjust;
             }
 
-            if ((bottomAdjust <= Wonderland.ActualHeight + 9) && (yadjust >= 100))
+            if ((bottomAdjust <= Wonderland.ActualHeight + 8) && (yadjust >= 100))
             {
                 Alice.Height = yadjust;
             }
@@ -336,7 +309,7 @@ namespace CustomWindowControl
             double xadjust = myCustomWindow.ActualWidth - e.Delta.Translation.X;
 
             // Restrict adjustment
-            if ((leftAdjust >= -9) && (xadjust >= 100))
+            if ((leftAdjust >= -8) && (xadjust >= 100))
             {
                 transformWindow.TranslateX += e.Delta.Translation.X;
                 myCustomWindow.Width = myCustomWindow.ActualWidth - e.Delta.Translation.X;
@@ -365,12 +338,12 @@ namespace CustomWindowControl
             double xadjust = Alice.ActualWidth + e.Delta.Translation.X;
 
             // Restrict adjustments
-            if ((rightAdjust <= Wonderland.ActualWidth + 9) && (xadjust >= 100))
+            if ((rightAdjust <= Wonderland.ActualWidth + 8) && (xadjust >= 100))
             {
                 Alice.Width = xadjust;
             }
 
-            if ((topAdjust >= -9) && (yadjust >= 100))
+            if ((topAdjust >= -8) && (yadjust >= 100))
             {
                 transformWindow.TranslateY += e.Delta.Translation.Y;
                 Alice.Height = yadjust;
@@ -396,7 +369,7 @@ namespace CustomWindowControl
             double yadjust = myCustomWindow.ActualHeight - e.Delta.Translation.Y;
 
             // Restrict adjustment
-            if ((topAdjust >= -9) && (yadjust >= 100))
+            if ((topAdjust >= -8) && (yadjust >= 100))
             {
                 transformWindow.TranslateY += e.Delta.Translation.Y;
                 myCustomWindow.Height = myCustomWindow.ActualHeight - e.Delta.Translation.Y;
@@ -425,13 +398,13 @@ namespace CustomWindowControl
             double xadjust = Alice.ActualWidth - e.Delta.Translation.X;
 
             // Restrict adjustments
-            if ((leftAdjust >= -9) && (xadjust >= 100))
+            if ((leftAdjust >= -8) && (xadjust >= 100))
             {
                 transformWindow.TranslateX += e.Delta.Translation.X;
                 Alice.Width = xadjust;
             }
 
-            if ((topAdjust >= -9) && (yadjust >= 100))
+            if ((topAdjust >= -8) && (yadjust >= 100))
             {
                 transformWindow.TranslateY += e.Delta.Translation.Y;
                 Alice.Height = yadjust;
@@ -457,7 +430,7 @@ namespace CustomWindowControl
             double xadjust = myCustomWindow.ActualWidth + e.Delta.Translation.X;
 
             // Restrict adjustment
-            if ((rightAdjust <= panel.ActualWidth + 9) && (xadjust >= 100))
+            if ((rightAdjust <= panel.ActualWidth + 8) && (xadjust >= 100))
             {
                 myCustomWindow.Width = xadjust;
             }

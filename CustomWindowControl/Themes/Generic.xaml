@@ -223,9 +223,6 @@
                                               Content="{TemplateBinding Content}" />
                             <Grid Name="gridTitleBar" Visibility="Collapsed">
                                 <Rectangle Name="rectTitleBar" Margin="2,2,2,0" Height="29" VerticalAlignment="Top" Fill="#B2007ACC"/>
-                                <Button Name="btnRestore" IsEnabled="False" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,37,0" Style="{StaticResource styleRestoreButton}" ToolTipService.ToolTip="Restore">
-                                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE923;"/>
-                                </Button>
                                 <Button Name="btnClose" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0" Style="{StaticResource styleCloseButton}" ToolTipService.ToolTip="Close">
                                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;"/>
                                 </Button>
