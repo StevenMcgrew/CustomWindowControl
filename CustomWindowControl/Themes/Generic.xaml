@@ -89,98 +89,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="styleRestoreButton" TargetType="Button">
-
-        <!--<Setter Property="Background" Value="{ThemeResource ButtonBackground}"/>-->
-        <Setter Property="Background" Value="Transparent"/>
-
-        <!--<Setter Property="Foreground" Value="{ThemeResource ButtonForeground}"/>-->
-        <Setter Property="Foreground" Value="White"/>
-
-        <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderBrush}"/>
-        <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
-        <Setter Property="Padding" Value="8,4,8,4"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
-        <Setter Property="FontWeight" Value="Normal"/>
-        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
-        <Setter Property="UseSystemFocusVisuals" Value="True"/>
-        <Setter Property="FocusVisualMargin" Value="-3"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal">
-                                    <Storyboard>
-                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="PointerOver">
-                                    <Storyboard>
-
-                                        <!--Changed color-->
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="#33BBBBBB"/>
-                                        </ObjectAnimationUsingKeyFrames>
-
-                                        <!--Comment this out-->
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPointerOver}"/>
-                                            </ObjectAnimationUsingKeyFrames>-->
-
-                                        <!--Changed this to White-->
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
-                                        </ObjectAnimationUsingKeyFrames>
-
-                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPressed}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPressed}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPressed}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
-                                        
-                                        <!--Comment this out-->
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundDisabled}"/>
-                                        </ObjectAnimationUsingKeyFrames>-->
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushDisabled}"/>
-                                        </ObjectAnimationUsingKeyFrames>-->
-                                        
-                                        <!--Change color-->
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="#7FADD8E6"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="local:TemplatedWindowControl" >
+    <Style TargetType="local:TemplatedWindowControl">
 
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="2"/>
@@ -223,6 +132,10 @@
                                               Content="{TemplateBinding Content}" />
                             <Grid Name="gridTitleBar" Visibility="Collapsed">
                                 <Rectangle Name="rectTitleBar" Margin="2,2,2,0" Height="29" VerticalAlignment="Top" Fill="#B2007ACC"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="29" VerticalAlignment="Top">
+                                    <TextBlock Text="Opacity" VerticalAlignment="Center" Foreground="White" Margin="0,0,5,0" FontSize="16"/>
+                                    <Slider Name="sliderOpacity" Width="100" VerticalAlignment="Top" Margin="0,-3,0,0" Minimum="25" Value="100" />
+                                </StackPanel>
                                 <Button Name="btnClose" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0" Style="{StaticResource styleCloseButton}" ToolTipService.ToolTip="Close">
                                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;"/>
                                 </Button>

@@ -37,10 +37,11 @@ namespace CustomWindowControl
         Rectangle _rectBottomLeft;
         Rectangle _rectBottom;
         Rectangle _rectBottomRight;
-
+        Slider _sliderOpacity;
 
         protected override void OnApplyTemplate()
         {
+            _sliderOpacity = GeneralizedGetTemplateChild<Slider>("sliderOpacity");
             _closeButton = GeneralizedGetTemplateChild<Button>("btnClose");
             _gridRoot = GeneralizedGetTemplateChild<Grid>("gridRoot");
             _gridTitleBar = GeneralizedGetTemplateChild<Grid>("gridTitleBar");
@@ -66,7 +67,8 @@ namespace CustomWindowControl
             _rectBottomLeft.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
             _rectBottom.ManipulationMode = ManipulationModes.TranslateY;
             _rectBottomRight.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
-            
+
+            this.Loaded += TemplatedWindowControl_Loaded;
             _rectTitleBar.ManipulationDelta += _rectTitleBar_ManipulationDelta;
             _closeButton.Click += _closeButton_Click;
             _gridRoot.PointerEntered += _gridRoot_PointerEntered;
@@ -108,6 +110,19 @@ namespace CustomWindowControl
             this.RenderTransform = transformWindow;
         }
 
+        private void TemplatedWindowControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            double initialOpacity = this.Opacity;
+            _sliderOpacity.Value = initialOpacity * 100;
+
+            Binding binding = new Binding();
+            binding.Source = _sliderOpacity;
+            binding.Path = new PropertyPath("Value");
+            binding.Mode = BindingMode.TwoWay;
+            binding.Converter = new Converters.OpacityBindingConverter();
+            this.SetBinding(OpacityProperty, binding);
+        }
+
         private void _closeButton_Click(object sender, RoutedEventArgs e)
         {
             ((Panel)this.Parent).Children.Remove(this);
@@ -122,7 +137,7 @@ namespace CustomWindowControl
         private void _gridRoot_PointerExited(object sender, PointerRoutedEventArgs e)
         {
             _contentPresenter.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            _gridTitleBar.Visibility = Visibility.Visible;
+            _gridTitleBar.Visibility = Visibility.Collapsed;
         }
 
         private void _PointerEntered(object sender, PointerRoutedEventArgs e)
