@@ -147,7 +147,7 @@ namespace CustomWindowControl
             }
             _sliderOpacity.Value = initialOpacity * 100;
 
-            // Here we set the binding between the opacity slider and the opacity of "this"
+            // Here we set the binding between the opacity slider and the opacity of _contentPresenter
             Binding binding = new Binding();
             binding.Source = _sliderOpacity;
             binding.Path = new PropertyPath("Value");
