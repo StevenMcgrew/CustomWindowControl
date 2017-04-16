@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.FileProperties;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
 namespace CustomWindowControl
 {
@@ -39,8 +29,6 @@ namespace CustomWindowControl
 
             // Create the window and set the image as it's content
             TemplatedWindowControl window = new TemplatedWindowControl();
-            window.HorizontalAlignment = HorizontalAlignment.Left;
-            window.VerticalAlignment = VerticalAlignment.Top;
             window.Width = imageProperties.Width;
             window.Height = imageProperties.Height;
             window.Content = image;
@@ -61,10 +49,9 @@ namespace CustomWindowControl
 
             // Create the window and set the image as it's content
             TemplatedWindowControl window = new TemplatedWindowControl();
-            window.HorizontalAlignment = HorizontalAlignment.Left;
-            window.VerticalAlignment = VerticalAlignment.Top;
             window.Width = imageProperties.Width;
             window.Height = imageProperties.Height;
+            window.Margin = new Thickness(50);
             window.Content = image;
 
             gridForWindows.Children.Add(window);
@@ -83,8 +70,6 @@ namespace CustomWindowControl
 
             // Create the window and set the xaml file object as the content
             TemplatedWindowControl window = new TemplatedWindowControl();
-            window.HorizontalAlignment = HorizontalAlignment.Left;
-            window.VerticalAlignment = VerticalAlignment.Top;
             window.Width = gridForWindows.ActualWidth / 2;
             window.Height = gridForWindows.ActualHeight / 2;
             window.Content = myAdditionalContent;

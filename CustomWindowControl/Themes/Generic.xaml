@@ -99,50 +99,53 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:TemplatedWindowControl">
 
-                    <Grid Name="gridRoot">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="9"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="9"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="9"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="9"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid Name="myBoundary" Margin="-9">
+                        <Grid Name="myWindow" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="9"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="9"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="9"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="9"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Rectangle Grid.Row="0" Grid.Column="1" Margin="0,0,0,-2" Fill="Transparent" Name="Top"/>
-                        <Rectangle Grid.Row="1" Grid.Column="0" Margin="0,0,-2,0" Fill="Transparent" Name="Left"/>
-                        <Rectangle Grid.Row="1" Grid.Column="2" Margin="-2,0,0,0" Fill="Transparent" Name="Right"/>
-                        <Rectangle Grid.Row="2" Grid.Column="1" Margin="0,-2,0,0" Fill="Transparent" Name="Bottom"/>
+                            <Rectangle Grid.Row="0" Grid.Column="1" Margin="0,0,0,-2" Fill="Transparent" Name="Top"/>
+                            <Rectangle Grid.Row="1" Grid.Column="0" Margin="0,0,-2,0" Fill="Transparent" Name="Left"/>
+                            <Rectangle Grid.Row="1" Grid.Column="2" Margin="-2,0,0,0" Fill="Transparent" Name="Right"/>
+                            <Rectangle Grid.Row="2" Grid.Column="1" Margin="0,-2,0,0" Fill="Transparent" Name="Bottom"/>
 
-                        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3">
-                            <Rectangle Fill="Transparent" Name="TopLeft" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <Rectangle Fill="Transparent" Name="TopRight" Width="18" Height="18" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                            <Rectangle Fill="Transparent" Name="BottomLeft" Width="18" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                            <Rectangle Fill="Transparent" Name="BottomRight" Width="18" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-                        </Grid>
-
-                        <Grid Name="gridForContent" Grid.Row="1" Grid.Column="1" Background="{TemplateBinding Background}">
-                            <ContentPresenter x:Name="ContentPresenter"
-                                              BorderThickness="{TemplateBinding BorderThickness}"
-                                              BorderBrush="{TemplateBinding BorderBrush}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                              ContentTransitions="{TemplateBinding ContentTransitions}" 
-                                              Content="{TemplateBinding Content}" />
-                            <Grid Name="gridTitleBar" Visibility="Collapsed">
-                                <Rectangle Name="rectTitleBar" Margin="2,2,2,0" Height="29" VerticalAlignment="Top" Fill="#B2007ACC"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="29" VerticalAlignment="Top">
-                                    <TextBlock Text="Opacity" VerticalAlignment="Center" Foreground="White" Margin="0,0,5,0" FontSize="16"/>
-                                    <Slider Name="sliderOpacity" Width="100" VerticalAlignment="Top" Margin="0,-3,0,0" Minimum="25" Value="100" />
-                                </StackPanel>
-                                <Button Name="btnClose" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0" Style="{StaticResource styleCloseButton}" ToolTipService.ToolTip="Close">
-                                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;"/>
-                                </Button>
+                            <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3">
+                                <Rectangle Fill="Transparent" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Top" Name="TopLeft"/>
+                                <Rectangle Fill="Transparent" Width="18" Height="18" HorizontalAlignment="Right" VerticalAlignment="Top" Name="TopRight"/>
+                                <Rectangle Fill="Transparent" Width="18" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Left" Name="BottomLeft"/>
+                                <Rectangle Fill="Transparent" Width="18" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="BottomRight"/>
                             </Grid>
+
+                            <Grid Grid.Row="1" Grid.Column="1" Background="{TemplateBinding Background}">
+                                
+                                <ContentPresenter x:Name="ContentPresenter"
+                                              BorderThickness="{TemplateBinding BorderThickness}"
+                                              BorderBrush="{TemplateBinding BorderBrush}" />
+                                
+                                <Grid Name="gridTitleBar" Visibility="Collapsed">
+                                    <Rectangle Name="rectTitleBar" Margin="2,2,2,0" Height="29" VerticalAlignment="Top" Fill="#B2007ACC"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="29" VerticalAlignment="Top">
+                                        <TextBlock Text="Opacity" VerticalAlignment="Center" Foreground="White" Margin="0,0,5,0" FontSize="16"/>
+                                        <Slider Name="sliderOpacity" Width="100" VerticalAlignment="Top" Margin="0,-3,0,0" Minimum="25" Value="100" />
+                                    </StackPanel>
+                                    <Button Name="btnClose" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,2,2,0" Style="{StaticResource styleCloseButton}" ToolTipService.ToolTip="Close">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;"/>
+                                    </Button>
+                                </Grid>
+                                
+                            </Grid>
+                            
                         </Grid>
                     </Grid>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
